@@ -454,11 +454,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\BackEnd\\BackEnd\\BackEnd.csproj",
+      "projectUniqueName": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\EPS\\BackEnd\\BackEnd\\BackEnd.csproj",
       "projectName": "BackEnd",
-      "projectPath": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\BackEnd\\BackEnd\\BackEnd.csproj",
+      "projectPath": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\EPS\\BackEnd\\BackEnd\\BackEnd.csproj",
       "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-      "outputPath": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\BackEnd\\BackEnd\\obj\\",
+      "outputPath": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\EPS\\BackEnd\\BackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",

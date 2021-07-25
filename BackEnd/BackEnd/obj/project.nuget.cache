@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b4HBauUd+0QZTQGu5M8jHuXsKU7iGYjV+nT5OkjirBcEJ2SWzyi/9DP9Pv/0XOvdyCdLfVLAi5EfxpW8BXIn+A==",
+  "dgSpecHash": "1vxH3Xk0xz6PgMi7kGUMSOpmcD5odbRqdpvzpcpuI5vvu1l0DPsPpJa5kFVlNGT9YeM2ixO/JPZTNryhc0TLfg==",
   "success": true,
-  "projectFilePath": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\BackEnd\\BackEnd\\BackEnd.csproj",
+  "projectFilePath": "D:\\DEVS\\Angular+NetCore\\EPS - Pacientes\\EPS\\BackEnd\\BackEnd\\BackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LENOVO\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
