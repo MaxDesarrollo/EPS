@@ -8,5 +8,6 @@ namespace BackEnd.Repositories.Interfaces
 {
     public interface IPersonaCollection: IGenericCollection<Persona,string>
     {
+
     }
 }

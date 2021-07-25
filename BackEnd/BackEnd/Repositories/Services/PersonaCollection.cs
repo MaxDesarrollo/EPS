@@ -20,18 +20,18 @@ namespace BackEnd.Repositories.Services
             Collection = _repository.db.GetCollection<Persona>("persona");
         }
 
-        public async Task<HttpResponserWrapper<bool>> Delete(Persona model)
+        public async Task<HttpResponserWrapper<bool>> Delete(string id)
         {
             try
             {
-                var filter = Builders<Persona>.Filter.Eq(s => s.Id, new ObjectId(model.Id.ToString()));
+                var filter = FilterPersonaById(id);
                 await Collection.DeleteOneAsync(filter);
                 return new HttpResponserWrapper<bool>(true, false, "Eliminado Correctamente...");
             }
             catch (MongoWriteException ex)
             {
                 return new HttpResponserWrapper<bool>(false, true, ex.WriteError.ToString());
-                throw;
+             
             }
             
 
@@ -49,7 +49,7 @@ namespace BackEnd.Repositories.Services
             {
                 var persona = new Persona();
                 return new HttpResponserWrapper<Persona>(persona, true, ex.WriteError.ToString());
-                throw;
+             
             }
         }
 
@@ -64,7 +64,7 @@ namespace BackEnd.Repositories.Services
             catch (MongoWriteException ex)
             {
                 return new HttpResponserWrapper<Persona>(model, true, ex.WriteError.ToString());
-                throw;
+              
             }
         }
 
@@ -84,7 +84,7 @@ namespace BackEnd.Repositories.Services
             {
                 var personas = new List<Persona>();
                 return new HttpResponserWrapper<List<Persona>>(personas, true, ex.WriteError.ToString());
-                throw;
+             
             }
         }
 
@@ -92,16 +92,22 @@ namespace BackEnd.Repositories.Services
         {
             try
             {
-                var filter = Builders<Persona>.Filter.Eq(s => s.Id, new ObjectId(model.Id.ToString()));
-                await Collection.ReplaceOneAsync(s => s.Id == model.Id, model);
+                var filter = FilterPersonaById(model.Id.ToString());
+                await Collection.ReplaceOneAsync(filter,model);
                 return new HttpResponserWrapper<Persona>(model, false, "Registo Actualizado Exitosamente...");
             }
             catch (MongoWriteException ex)
             {
                 return new HttpResponserWrapper<Persona>(model, true, ex.WriteError.ToString());
-                throw;
+               
             }
-            throw new NotImplementedException();
+           
+        }
+
+
+        private FilterDefinition<Persona> FilterPersonaById(string id)
+        {
+            return  Builders<Persona>.Filter.Eq(s => s.Id, new ObjectId(id));
         }
     }
 }

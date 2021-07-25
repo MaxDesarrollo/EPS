@@ -21,7 +21,7 @@ namespace BackEnd.Repositories.Services
             Collection = _repository.db.GetCollection<Eps>("eps");
         }
 
-        public Task<HttpResponserWrapper<bool>> Delete(Eps model)
+        public Task<HttpResponserWrapper<bool>> Delete(string id)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace BackEnd.Repositories.Services
             {
                 var eps = new Eps();
                 return new HttpResponserWrapper<Eps>(eps, true, ex.WriteError.ToString());
-                throw;
+              
             }
         }
 
@@ -62,7 +62,7 @@ namespace BackEnd.Repositories.Services
             {
                 var eps = new List<Eps>();
                 return new HttpResponserWrapper<List<Eps>>(eps, true, ex.WriteError.ToString());
-                throw;
+              
             }
         }
 
