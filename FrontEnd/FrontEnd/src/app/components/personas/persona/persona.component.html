@@ -1,0 +1,107 @@
+<form class="p-3" [formGroup]="form" >
+  <div class="form-group ">
+    <div class="row my-2">
+      <div class="row my-2">
+       <p class="fs-5">Datos Personales</p>
+    </div>
+      <div class="col">
+
+          <label for="txtPrimerNombre" class="form-label"> Primer Nombre</label>
+          <input type="text" class="form-control form-control-sm"  id="txtPrimerNombre">
+
+      </div>
+      <div class="col">
+
+        <label for="txtSegundoNombre" class="form-label"> Segundo Nombre</label>
+          <input type="text" class="form-control form-control-sm" id="txtSegundoNombre">
+
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col">
+        <label for="txtPrimerApellido" class="form-label"> Primer Apellido</label>
+        <input type="text" class="form-control form-control-sm" id="txtPrimerApellido">
+      </div>
+      <div class="col">
+        <label for="txtSegundoApellido" class="form-label"> Segundo Apellido</label>
+        <input type="text" class="form-control form-control-sm" id="txtSegundoApellido">
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col">
+        <label for="txtEstadoCivil" class="form-label"> Estado Civil</label>
+        <input type="text" class="form-control form-control-sm" id="txtEstadoCivil">
+      </div>
+      <div class="col">
+        <label for="txtSexo" class="form-label">Sexo</label>
+        <input type="text" class="form-control form-control-sm" id="txtSexo">
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col">
+        <label for="txtFechaNacimiento" class="form-label"> Fecha Nacimiento</label>
+        <input type="date" class="form-control form-control-sm" id="txtFechaNacimiento">
+      </div>
+
+    </div>
+    <div class="divider"></div>
+    <div class="row my-2">
+      <p class="fs-5">Datos de Identificiacion</p>
+    </div>
+    <div class="row my-2">
+      <div class="col">
+        <label for="txtNumero" class="form-label"> Numero Identificiacion</label>
+        <input type="text" class="form-control form-control-sm" id="txtNumero" placeholder="Numero de identificacion de la persona">
+      </div>
+      <div class="col">
+        <label for="sltTipoIdentificacion" class="form-label"> Tipo de Identificiacion</label>
+       <select  id="sltTipoIdentificacion" class="form-select  form-select-sm">
+         <option value="0" disabled selected> Seleccione Tipo de Identificiacion</option>
+         <option value="Cedula de Identidad"> Cedula de Identidad</option>
+         <option value="Tarjeta de Identidad" > Tarjeta de Identidad</option>
+         <option value="Cedula de Extranjeria" > Cedula de Extranjeria</option>
+
+         <option value="Otra" > Otra</option>
+       </select>
+      </div>
+
+
+    </div>
+    <div class="row my-2">
+      <div class="col">
+        <label for="txtFechaEpedicion" class="form-label">Fecha Expedicion</label>
+        <input type="date" class="form-control form-control-sm" id="txtFechaExpedicion" >
+      </div>
+      <div class="col">
+        <label for="txtLugarExpedicion" class="form-label">Lugar Expedicion</label>
+        <input type="text" class="form-control form-control-sm" id="txtLugarExpedicion">
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row my-2">
+      <p class="fs-5">Datos de EPS</p>
+    </div>
+    <div class="row my-2">
+      <div class="col">
+
+        <label for="sltEps" class="form-label"> Entidad</label>
+        <select  id="sltEps" class="form-select  form-select-sm">
+
+        </select>
+      </div>
+
+    </div>
+    <div class="row my-2">
+      <div class="col">
+        <label for="txtFechaAfiliacion" class="form-label"> Fecha Afiliacion</label>
+        <input type="date" class="form-control form-control-sm" id="txtFechaAfiliacion">
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col ">
+        <button class="btn btn btn-outline-success" type="submit">GUARDAR  </button>
+      </div>
+    </div>
+
+  </div>
+</form>
