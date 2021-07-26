@@ -32,6 +32,7 @@ export class PersonaService {
    return  this.http.get<Api_Response>(this.urlApp + this.urlApi).toPromise()
    .then(data => {
      this.listPersonas = data.response as Persona[]
+     console.log(this.listPersonas);
    });
 
   }
@@ -41,6 +42,11 @@ export class PersonaService {
 
   obtenerPersona$() : Observable<Persona>{
     return this.actualizarFormulario.asObservable();
+  }
+
+  actualizarPersona(id: string|undefined, persona:Persona):Observable<Persona>{
+    return this.http.put<Persona>(this.urlApp + this.urlApi + id, persona)
+
   }
 
 

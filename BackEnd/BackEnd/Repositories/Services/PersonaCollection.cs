@@ -94,8 +94,10 @@ namespace BackEnd.Repositories.Services
         {
             try
             {
+                var countDocumentVersion = int.Parse(model.Document_version) + 1;
                 var filter = FilterPersonaById(model.Id.ToString());
-                model.Document_version = model.Document_version + 1;
+                model.Schema_version = 1.ToString();
+                model.Document_version = countDocumentVersion.ToString();
                 await Collection.ReplaceOneAsync(filter,model);
                 return new HttpResponserWrapper<Persona>(model, false, "Registo Actualizado Exitosamente...");
             }

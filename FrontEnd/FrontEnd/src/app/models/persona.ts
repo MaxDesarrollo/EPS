@@ -14,6 +14,8 @@ export class Persona{
     correo: string;
     identificacion? : Identificacion;
     core_eps? : Core_Eps;
+    document_version: string;
+    schema_version:string;
 
 
 

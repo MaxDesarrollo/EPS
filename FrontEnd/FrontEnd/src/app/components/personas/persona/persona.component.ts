@@ -19,6 +19,7 @@ export class PersonaComponent implements OnInit, OnDestroy {
   form: FormGroup;
   suscription : Subscription;
   persona : Persona;
+  idPersona? : string;
 
   constructor(private formBuilder: FormBuilder, private personaService: PersonaService,private toastr: ToastrService ) {
     this.form = this.formBuilder.group({
@@ -61,6 +62,7 @@ export class PersonaComponent implements OnInit, OnDestroy {
         fecha_expedicion: this.persona.identificacion?.fecha_expedicion,
         lugar_expedicion: this.persona.identificacion?.lugar_expedicion
       })
+      this.idPersona = this.persona.id;
     })
   }
 
@@ -69,6 +71,19 @@ export class PersonaComponent implements OnInit, OnDestroy {
   }
 
   guardar(){
+
+    console.log(this.idPersona);
+    if(this.idPersona === undefined){
+        this.agregar();
+    }
+    else{
+        this.editar();
+    }
+
+  }
+
+
+  agregar(){
     const identificacion : Identificacion = {
       numero : this.form.get('numero_identificacion')?.value,
       tipo: this.form.get('tipo_identificacion')?.value,
@@ -85,7 +100,8 @@ export class PersonaComponent implements OnInit, OnDestroy {
     }
 
     const persona : Persona = {
-
+      schema_version : "1",
+      document_version:"1",
       codigo_Interno : this.form.get('codigo_interno')?.value,
       primer_Nombre : this.form.get('primer_nombre')?.value,
       segundo_Nombre: this.form.get('segundo_nombre')?.value,
@@ -99,29 +115,58 @@ export class PersonaComponent implements OnInit, OnDestroy {
       core_eps : core_eps,
     }
 
-
-
-
-    if(this.persona.id){
-      // guardar
-      this.personaService.guardar(persona).subscribe(data => {
-        console.log(data)
-        console.log(typeof(data))
-        this.toastr.success('Registro agregado', 'Persona Agregada')
-        this.personaService.obtenerPersonas();
-        this.form.reset();
-      })
-    }
-    else{
-      // actualizar
-      console.log('update');
-    }
-
-
-
+    this.personaService.guardar(persona).subscribe(data => {
+      console.log(data)
+      console.log(typeof(data))
+      this.toastr.success('Registro agregado', 'Persona Agregada')
+      this.personaService.obtenerPersonas();
+      this.form.reset();
+    })
 
   }
 
+
+  editar(){
+
+    const identificacion : Identificacion = {
+      numero : this.form.get('numero_identificacion')?.value,
+      tipo: this.form.get('tipo_identificacion')?.value,
+      fecha_expedicion : this.form.get('fecha_expedicion')?.value,
+     lugar_expedicion: this.form.get('lugar_expedicion')?.value
+    }
+
+    const core_eps : Core_Eps = {
+
+      entidad : this.form.get ('entidad')?.value,
+      fecha_ingreso : this.form.get('fecha_afiliacion')?.value,
+      estado_afiliacion : 'activo'
+
+    }
+
+    const persona : Persona = {
+      id: this.persona.id,
+      schema_version: this.persona.schema_version,
+      document_version: this.persona.document_version,
+      codigo_Interno : this.form.get('codigo_interno')?.value,
+      primer_Nombre : this.form.get('primer_nombre')?.value,
+      segundo_Nombre: this.form.get('segundo_nombre')?.value,
+      primer_Apellido : this.form.get('primer_apellido')?.value,
+      segundo_Apellido : this.form.get('segundo_apellido')?.value,
+      estado_Civil: this.form.get('estado_civil')?.value,
+      sexo: this.form.get('sexo')?.value,
+      fecha_Nacimiento: this.form.get('fecha_nacimiento')?.value,
+      correo: this.form.get('correo')?.value,
+      identificacion: identificacion,
+      core_eps : core_eps,
+    }
+
+    this.personaService.actualizarPersona(this.idPersona,persona).subscribe(data => {
+        this.toastr.info('Registro Actualizado', 'Persona actualizada correctamente');
+        this.personaService.obtenerPersonas();
+        this.form.reset();
+    })
+
+  }
 
 
 }

@@ -14,7 +14,7 @@ export class ListPersonasComponent implements OnInit {
   personasList :Persona[];
   constructor(public personaService : PersonaService, public toastr: ToastrService) {
 
-    this.mapeoPersonas();
+    this.obtenerPersonas();
   }
 
   ngOnInit(): void {
@@ -23,9 +23,8 @@ export class ListPersonasComponent implements OnInit {
 
   }
 
-  mapeoPersonas(){
-     var response =  this.personaService.obtenerPersonas() as Api_Response ;
-     this.personasList = response.response;
+  obtenerPersonas(){
+     this.personaService.obtenerPersonas()
 
   }
 
@@ -40,6 +39,7 @@ export class ListPersonasComponent implements OnInit {
   }
 
   editar(persona:any){
+    console.log(persona);
     this.personaService.actualizar(persona);
   }
 
