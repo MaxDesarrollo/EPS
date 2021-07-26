@@ -10,6 +10,6 @@ namespace BackEnd.Repositories.Interfaces
     public interface IEpsCollection : IGenericCollection<Eps,string>
     {
 
-        
+        Task<Eps> GetEpsByID(string id);
     }
 }

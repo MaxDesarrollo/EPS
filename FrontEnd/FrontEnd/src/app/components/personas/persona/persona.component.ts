@@ -5,8 +5,10 @@ import { Subscription } from 'rxjs';
 import { Api_Response } from 'src/app/models/api_response';
 
 import { Core_Eps } from 'src/app/models/core_eps';
+import { Eps } from 'src/app/models/eps';
 import { Identificacion } from 'src/app/models/identificacion';
 import { Persona } from 'src/app/models/persona';
+import { EpsService } from 'src/app/service/eps.service';
 
 import { PersonaService } from 'src/app/service/persona.service';
 
@@ -19,9 +21,10 @@ export class PersonaComponent implements OnInit, OnDestroy {
   form: FormGroup;
   suscription : Subscription;
   persona : Persona;
+  eps : Eps;
   idPersona? : string;
 
-  constructor(private formBuilder: FormBuilder, private personaService: PersonaService,private toastr: ToastrService ) {
+  constructor(private formBuilder: FormBuilder, private personaService: PersonaService, public epsService: EpsService,private toastr: ToastrService ) {
     this.form = this.formBuilder.group({
 
       primer_nombre:['',[Validators.required]],
@@ -43,11 +46,14 @@ export class PersonaComponent implements OnInit, OnDestroy {
 
 
     })
+
+    this.obtenerEps();
    }
 
   ngOnInit(): void {
     this.personaService.obtenerPersona$().subscribe(data => {
       this.persona = data;
+      console.log(this.persona);
       this.form.patchValue({
         primer_nombre: this.persona.primer_Nombre,
         segundo_nombre: this.persona.segundo_Nombre,
@@ -60,7 +66,9 @@ export class PersonaComponent implements OnInit, OnDestroy {
         numero_identificacion: this.persona.identificacion?.numero,
         tipo_identificacion: this.persona.identificacion?.tipo,
         fecha_expedicion: this.persona.identificacion?.fecha_expedicion,
-        lugar_expedicion: this.persona.identificacion?.lugar_expedicion
+        lugar_expedicion: this.persona.identificacion?.lugar_expedicion,
+        entidad : this.persona.core_eps?.id,
+        fecha_afiliacion : this.persona.core_eps?.fecha_ingreso
       })
       this.idPersona = this.persona.id;
     })
@@ -68,6 +76,10 @@ export class PersonaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.suscription.unsubscribe();
+  }
+
+  obtenerEps(){
+    this.epsService.obtenerEps();
   }
 
   guardar(){
@@ -93,7 +105,8 @@ export class PersonaComponent implements OnInit, OnDestroy {
 
     const core_eps : Core_Eps = {
 
-      entidad : this.form.get ('entidad')?.value,
+      id : this.form.get ('entidad')?.value,
+      entidad:'',
       fecha_ingreso : this.form.get('fecha_afiliacion')?.value,
       estado_afiliacion : 'activo'
 
@@ -132,12 +145,13 @@ export class PersonaComponent implements OnInit, OnDestroy {
       numero : this.form.get('numero_identificacion')?.value,
       tipo: this.form.get('tipo_identificacion')?.value,
       fecha_expedicion : this.form.get('fecha_expedicion')?.value,
-     lugar_expedicion: this.form.get('lugar_expedicion')?.value
+      lugar_expedicion: this.form.get('lugar_expedicion')?.value
     }
 
     const core_eps : Core_Eps = {
 
-      entidad : this.form.get ('entidad')?.value,
+      id : this.form.get ('entidad')?.value,
+      entidad:'',
       fecha_ingreso : this.form.get('fecha_afiliacion')?.value,
       estado_afiliacion : 'activo'
 

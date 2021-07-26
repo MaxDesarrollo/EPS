@@ -41,6 +41,18 @@ namespace BackEnd.Repositories.Services
             }
         }
 
+        public async Task<Eps> GetEpsByID(string id)
+        {
+            try
+            {
+                return await Collection.FindAsync(new BsonDocument { { "_id", new ObjectId(id) } }).Result.FirstOrDefaultAsync();
+
+            }catch(MongoWriteException ex)
+            {
+                return null;
+            }
+        }
+
         public Task<HttpResponserWrapper<Eps>> Insert(Eps model)
         {
             throw new NotImplementedException();

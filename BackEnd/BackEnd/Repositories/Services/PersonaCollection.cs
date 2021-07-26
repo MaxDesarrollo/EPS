@@ -14,6 +14,7 @@ namespace BackEnd.Repositories.Services
     {
         internal RutasMedicasDBRepository _repository = new RutasMedicasDBRepository();
         private IMongoCollection<Persona> Collection;
+        private EpsCollection epsCollection = new EpsCollection();
 
         public PersonaCollection()
         {
@@ -42,6 +43,7 @@ namespace BackEnd.Repositories.Services
         {
             try
             {
+
                 var persona = await Collection.FindAsync(new BsonDocument { { "_id", new ObjectId(id.ToString()) } }).Result.FirstOrDefaultAsync();
                 return new HttpResponserWrapper<Persona>(persona, false, "");
             }
@@ -57,6 +59,8 @@ namespace BackEnd.Repositories.Services
         {
             try
             {
+                var eps = await GetEps(model.Core_Eps.Id);
+                model.Core_Eps.Entidad = eps.Entidad;
                 await Collection.InsertOneAsync(model);
                 var response =  new HttpResponserWrapper<Persona>(model, false, "Registro Guardado Exitosamente...");
 
@@ -114,5 +118,14 @@ namespace BackEnd.Repositories.Services
         {
             return  Builders<Persona>.Filter.Eq(s => s.Id, id);
         }
+
+
+        private async Task<Eps> GetEps(string id)
+        {
+            return await epsCollection.GetEpsByID(id);
+        }
+
+
+
     }
 }

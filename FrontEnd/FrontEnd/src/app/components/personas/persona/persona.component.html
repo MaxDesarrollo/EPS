@@ -103,8 +103,8 @@
 
         <label for="sltEps" class="form-label"> Entidad</label>
         <select  id="sltEps" class="form-select  form-select-sm" formControlName = "entidad">
-          <option value="CASA COLOR">CASA COLOR</option>
-          <option value="CASA AZUL">CASA AZUL</option>
+          <option disabled>Seleccione una Entidad</option>
+          <option [value] = "eps.id"  *ngFor="let eps of  epsService.listEps"> {{ eps.entidad}}</option>
         </select>
       </div>
 
