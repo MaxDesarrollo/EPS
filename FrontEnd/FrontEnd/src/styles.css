@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+/* Styles for validations */
+input.ng-touched.ng-invalid{
+  border-color: #dc3545;
+}
+
+select.ng-touched.ng-invalid{
+  border-color: #dc3545;
+}
+
+input.ng-valid{
+  border-color: #284745;
+}
+
+select.ng-valid{
+  border-color: #284745;
+}
+
+input[type=email].ng-touched.ng-invalid{
+  border-color: #dc3545;
+}
+
+input[type=email].ng-valid{
+  border-color: #284745;
+}

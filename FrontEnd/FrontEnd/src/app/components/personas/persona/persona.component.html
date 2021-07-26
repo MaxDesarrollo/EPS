@@ -1,46 +1,63 @@
-<form class="p-3" [formGroup]="form" >
+<form class="p-3" [formGroup]="form" (ngSubmit)="guardar()">
   <div class="form-group ">
     <div class="row my-2">
-      <div class="row my-2">
+
        <p class="fs-5">Datos Personales</p>
     </div>
+    <div class="row my-2">
       <div class="col">
-
-          <label for="txtPrimerNombre" class="form-label"> Primer Nombre</label>
-          <input type="text" class="form-control form-control-sm"  id="txtPrimerNombre">
-
-      </div>
-      <div class="col">
-
-        <label for="txtSegundoNombre" class="form-label"> Segundo Nombre</label>
-          <input type="text" class="form-control form-control-sm" id="txtSegundoNombre">
-
+        <label for="txtCodigoInterno" class="form-label"> Codigo Interno</label>
+        <input type="text" class="form-control form-control-sm" formControlName="codigo_interno" id="txtCodigoInterno" maxlength="12">
       </div>
     </div>
+    <div class="row my-2">
+      <div class="col">
+
+        <label for="txtPrimerNombre" class="form-label"> Primer Nombre</label>
+        <input type="text" class="form-control form-control-sm" formControlName="primer_nombre" id="txtPrimerNombre">
+
+    </div>
+    <div class="col">
+
+      <label for="txtSegundoNombre" class="form-label"> Segundo Nombre</label>
+        <input type="text" class="form-control form-control-sm" id="txtSegundoNombre" formControlName ="segundo_nombre">
+
+    </div>
+    </div>
+
+
+
     <div class="row my-2">
       <div class="col">
         <label for="txtPrimerApellido" class="form-label"> Primer Apellido</label>
-        <input type="text" class="form-control form-control-sm" id="txtPrimerApellido">
+        <input type="text" class="form-control form-control-sm" id="txtPrimerApellido" formControlName = "primer_apellido">
       </div>
       <div class="col">
         <label for="txtSegundoApellido" class="form-label"> Segundo Apellido</label>
-        <input type="text" class="form-control form-control-sm" id="txtSegundoApellido">
+        <input type="text" class="form-control form-control-sm" id="txtSegundoApellido" formControlName = "segundo_apellido">
       </div>
     </div>
     <div class="row my-2">
       <div class="col">
         <label for="txtEstadoCivil" class="form-label"> Estado Civil</label>
-        <input type="text" class="form-control form-control-sm" id="txtEstadoCivil">
+        <input type="text" class="form-control form-control-sm" id="txtEstadoCivil" formControlName = "estado_civil">
       </div>
       <div class="col">
         <label for="txtSexo" class="form-label">Sexo</label>
-        <input type="text" class="form-control form-control-sm" id="txtSexo">
+        <input type="text" class="form-control form-control-sm" id="txtSexo" formControlName = "sexo">
       </div>
     </div>
     <div class="row my-2">
       <div class="col">
         <label for="txtFechaNacimiento" class="form-label"> Fecha Nacimiento</label>
-        <input type="date" class="form-control form-control-sm" id="txtFechaNacimiento">
+        <input type="date" class="form-control form-control-sm" id="txtFechaNacimiento" formControlName = "fecha_nacimiento">
+      </div>
+
+    </div>
+    <div class="row my-2">
+      <div class="col">
+        <label for="txtCorreo" class="form-label">Correo</label>
+        <input type="email" class="form-control form-control-sm" id="txtCorreo" formControlName = "correo" multiple>
       </div>
 
     </div>
@@ -51,11 +68,11 @@
     <div class="row my-2">
       <div class="col">
         <label for="txtNumero" class="form-label"> Numero Identificiacion</label>
-        <input type="text" class="form-control form-control-sm" id="txtNumero" placeholder="Numero de identificacion de la persona">
+        <input type="text" class="form-control form-control-sm" id="txtNumero" formControlName = "numero_identificacion" maxlength="9">
       </div>
       <div class="col">
         <label for="sltTipoIdentificacion" class="form-label"> Tipo de Identificiacion</label>
-       <select  id="sltTipoIdentificacion" class="form-select  form-select-sm">
+       <select  id="sltTipoIdentificacion" class="form-select  form-select-sm" formControlName = "tipo_identificacion">
          <option value="0" disabled selected> Seleccione Tipo de Identificiacion</option>
          <option value="Cedula de Identidad"> Cedula de Identidad</option>
          <option value="Tarjeta de Identidad" > Tarjeta de Identidad</option>
@@ -70,11 +87,11 @@
     <div class="row my-2">
       <div class="col">
         <label for="txtFechaEpedicion" class="form-label">Fecha Expedicion</label>
-        <input type="date" class="form-control form-control-sm" id="txtFechaExpedicion" >
+        <input type="date" class="form-control form-control-sm" id="txtFechaExpedicion" formControlName = "fecha_expedicion">
       </div>
       <div class="col">
         <label for="txtLugarExpedicion" class="form-label">Lugar Expedicion</label>
-        <input type="text" class="form-control form-control-sm" id="txtLugarExpedicion">
+        <input type="text" class="form-control form-control-sm" id="txtLugarExpedicion" formControlName = "lugar_expedicion">
       </div>
     </div>
     <div class="divider"></div>
@@ -85,8 +102,9 @@
       <div class="col">
 
         <label for="sltEps" class="form-label"> Entidad</label>
-        <select  id="sltEps" class="form-select  form-select-sm">
-
+        <select  id="sltEps" class="form-select  form-select-sm" formControlName = "entidad">
+          <option value="CASA COLOR">CASA COLOR</option>
+          <option value="CASA AZUL">CASA AZUL</option>
         </select>
       </div>
 
@@ -94,12 +112,12 @@
     <div class="row my-2">
       <div class="col">
         <label for="txtFechaAfiliacion" class="form-label"> Fecha Afiliacion</label>
-        <input type="date" class="form-control form-control-sm" id="txtFechaAfiliacion">
+        <input type="date" class="form-control form-control-sm" id="txtFechaAfiliacion" formControlName = "fecha_afiliacion">
       </div>
     </div>
     <div class="row justify-content-end">
       <div class="col ">
-        <button class="btn btn btn-outline-success" type="submit">GUARDAR  </button>
+        <button class="btn btn btn-outline-success" [disabled]="form.invalid" type="submit">GUARDAR  </button>
       </div>
     </div>
 
