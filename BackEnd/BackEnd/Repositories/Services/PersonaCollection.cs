@@ -42,7 +42,7 @@ namespace BackEnd.Repositories.Services
         {
             try
             {
-                var persona = await Collection.FindAsync(new BsonDocument { { "_id", new ObjectId(id) } }).Result.FirstOrDefaultAsync();
+                var persona = await Collection.FindAsync(new BsonDocument { { "_id", new ObjectId(id.ToString()) } }).Result.FirstOrDefaultAsync();
                 return new HttpResponserWrapper<Persona>(persona, false, "");
             }
             catch (MongoWriteException ex)
@@ -58,7 +58,9 @@ namespace BackEnd.Repositories.Services
             try
             {
                 await Collection.InsertOneAsync(model);
-                return new HttpResponserWrapper<Persona>(model, false, "Registro Guardado Exitosamente...");
+                var response =  new HttpResponserWrapper<Persona>(model, false, "Registro Guardado Exitosamente...");
+
+                return response;
 
             }
             catch (MongoWriteException ex)
@@ -93,6 +95,7 @@ namespace BackEnd.Repositories.Services
             try
             {
                 var filter = FilterPersonaById(model.Id.ToString());
+                model.Document_version = model.Document_version + 1;
                 await Collection.ReplaceOneAsync(filter,model);
                 return new HttpResponserWrapper<Persona>(model, false, "Registo Actualizado Exitosamente...");
             }
@@ -107,7 +110,7 @@ namespace BackEnd.Repositories.Services
 
         private FilterDefinition<Persona> FilterPersonaById(string id)
         {
-            return  Builders<Persona>.Filter.Eq(s => s.Id, new ObjectId(id));
+            return  Builders<Persona>.Filter.Eq(s => s.Id, id);
         }
     }
 }

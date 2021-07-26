@@ -16,7 +16,7 @@ namespace BackEnd.Models
 
 
         [BsonElement("lugar_expedicion")]
-        public DateTime Lugar_Expedicion { get; set; }
+        public string Lugar_Expedicion { get; set; }
 
 
         [BsonElement("tipo")]

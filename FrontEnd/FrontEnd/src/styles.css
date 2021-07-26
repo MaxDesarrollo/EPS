@@ -1,3 +1,4 @@
+@import '~ngx-toastr/toastr';
 /* Styles for validations */
 input.ng-touched.ng-invalid{
   border-color: #dc3545;

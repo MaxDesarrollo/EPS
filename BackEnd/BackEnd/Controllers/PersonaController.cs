@@ -1,4 +1,5 @@
 ﻿using BackEnd.Models;
+using BackEnd.Repositories.Helpers;
 using BackEnd.Repositories.Interfaces;
 using BackEnd.Repositories.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -33,18 +34,18 @@ namespace BackEnd.Controllers
        
 
         [HttpPost]
-        public async Task<IActionResult> CreatePersona([FromBody] Persona persona)
+        public async Task<HttpResponserWrapper<Persona>> CreatePersona([FromBody] Persona persona)
         {
-            if (persona == null)
-                return BadRequest();
-
+           
             if(persona.Primer_Nombre == string.Empty)
             {
                 ModelState.AddModelError("Primer Nombre", "El Primer nombre no puede ser vacio");
             }
 
-            await db.Insert(persona);
-            return Created("Created", true);
+            persona.Schema_version = 1.ToString();
+            persona.Document_version = 1.ToString();
+            var response = await db.Insert(persona);
+            return response;
         }
 
         [HttpPut("{id}")]
@@ -59,15 +60,16 @@ namespace BackEnd.Controllers
             }
 
 
-            persona.Id = new ObjectId(id);
+            persona.Id = id;
+            
 
             await db.Update(persona);
             return Created("Created", true);
 
         }
 
-
-        [HttpDelete]
+        [Route("Delete")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePersona(string id)
         {
             await db.Delete(id);

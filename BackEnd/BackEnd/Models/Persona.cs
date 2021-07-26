@@ -12,7 +12,7 @@ namespace BackEnd.Models
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         [BsonElement("_id")]
-        public ObjectId Id { get; set; }
+        public string Id { get; set; }
 
         [BsonElement("schema_version")]
         public string Schema_version { get; set; }

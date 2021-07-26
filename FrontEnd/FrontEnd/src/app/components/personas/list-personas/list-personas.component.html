@@ -1,1 +1,30 @@
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>Nombre Completo</th>
+      <th>Codigo</th>
+      <th>Fecha Nacimiento</th>
 
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let persona of personaService.listPersonas">
+
+
+      <td> {{ persona.primer_Nombre }} {{persona.segundo_Nombre}} {{persona.primer_Apellido}} {{persona.segundo_Apellido}} </td>
+
+      <td> {{ persona.codigo_Interno  }} </td>
+      <td> {{ persona.fecha_Nacimiento | date }} </td>
+
+      <td>
+        <i class="far fa-edit fa-lg text-info" style="cursor:pointer"></i>
+      </td>
+      <td>
+        <i class="far fa-trash-alt fa-lg text-danger" style="cursor:pointer" (click)="eliminarPersona(persona.id)"></i>
+      </td>
+
+    </tr>
+  </tbody>
+
+
+</table>
