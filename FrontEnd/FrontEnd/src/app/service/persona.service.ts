@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, pipe } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Api_Response } from '../models/api_response';
 import { Persona } from '../models/persona';
@@ -14,6 +14,8 @@ export class PersonaService {
   urlApp = environment.urlApp;
   urlApi = "api/persona/";
   listPersonas: Persona[];
+
+  private actualizarFormulario = new BehaviorSubject<Persona>({} as any);
   constructor(private http:HttpClient) { }
 
   guardar(persona: Persona ) : Observable<Persona>{
@@ -32,9 +34,15 @@ export class PersonaService {
      this.listPersonas = data.response as Persona[]
    });
 
-
-
   }
+  actualizar(persona:any){
+    this.actualizarFormulario.next(persona)
+  }
+
+  obtenerPersona$() : Observable<Persona>{
+    return this.actualizarFormulario.asObservable();
+  }
+
 
 
 

@@ -39,4 +39,8 @@ export class ListPersonasComponent implements OnInit {
     }
   }
 
+  editar(persona:any){
+    this.personaService.actualizar(persona);
+  }
+
 }

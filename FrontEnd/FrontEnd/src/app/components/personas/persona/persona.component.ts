@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { Api_Response } from 'src/app/models/api_response';
 
 import { Core_Eps } from 'src/app/models/core_eps';
@@ -14,11 +15,14 @@ import { PersonaService } from 'src/app/service/persona.service';
   templateUrl: './persona.component.html',
   styleUrls: ['./persona.component.css']
 })
-export class PersonaComponent implements OnInit {
+export class PersonaComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  suscription : Subscription;
+  persona : Persona;
+
   constructor(private formBuilder: FormBuilder, private personaService: PersonaService,private toastr: ToastrService ) {
     this.form = this.formBuilder.group({
-      id:0,
+
       primer_nombre:['',[Validators.required]],
       segundo_nombre:[''],
       primer_apellido:['',[Validators.required]],
@@ -41,6 +45,27 @@ export class PersonaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.personaService.obtenerPersona$().subscribe(data => {
+      this.persona = data;
+      this.form.patchValue({
+        primer_nombre: this.persona.primer_Nombre,
+        segundo_nombre: this.persona.segundo_Nombre,
+        primer_apellido: this.persona.primer_Apellido,
+        segundo_apellido: this.persona.segundo_Apellido,
+        codigo_interno: this.persona.codigo_Interno,
+        estado_civil: this.persona.estado_Civil,
+        sexo: this.persona.sexo,
+        fecha_nacimiento: this.persona.fecha_Nacimiento,
+        numero_identificacion: this.persona.identificacion?.numero,
+        tipo_identificacion: this.persona.identificacion?.tipo,
+        fecha_expedicion: this.persona.identificacion?.fecha_expedicion,
+        lugar_expedicion: this.persona.identificacion?.lugar_expedicion
+      })
+    })
+  }
+
+  ngOnDestroy(){
+    this.suscription.unsubscribe();
   }
 
   guardar(){
@@ -77,14 +102,22 @@ export class PersonaComponent implements OnInit {
 
 
 
+    if(this.persona.id){
+      // guardar
+      this.personaService.guardar(persona).subscribe(data => {
+        console.log(data)
+        console.log(typeof(data))
+        this.toastr.success('Registro agregado', 'Persona Agregada')
+        this.personaService.obtenerPersonas();
+        this.form.reset();
+      })
+    }
+    else{
+      // actualizar
+      console.log('update');
+    }
 
-    this.personaService.guardar(persona).subscribe(data => {
-      console.log(data)
-      console.log(typeof(data))
-      this.toastr.success('Registro agregado', 'Persona Agregada')
-      this.personaService.obtenerPersonas();
-      this.form.reset();
-    })
+
 
 
   }

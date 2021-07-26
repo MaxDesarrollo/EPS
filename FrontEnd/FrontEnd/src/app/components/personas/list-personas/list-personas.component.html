@@ -17,7 +17,7 @@
       <td> {{ persona.fecha_Nacimiento | date }} </td>
 
       <td>
-        <i class="far fa-edit fa-lg text-info" style="cursor:pointer"></i>
+        <i class="far fa-edit fa-lg text-info" style="cursor:pointer" (click)="editar(persona)"></i>
       </td>
       <td>
         <i class="far fa-trash-alt fa-lg text-danger" style="cursor:pointer" (click)="eliminarPersona(persona.id)"></i>
